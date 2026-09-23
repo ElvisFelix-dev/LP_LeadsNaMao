@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 
 import {
@@ -21,6 +22,39 @@ import Footer from '../components/landing/Footer';
 
 import logoImg from '../assets/logoImg.png';
 
+/*
+=====================================================
+EMAILJS
+=====================================================
+*/
+
+const EMAILJS_SERVICE_ID =
+  import.meta.env.VITE_EMAILJS_SERVICE_ID;
+
+const EMAILJS_ADMIN_TEMPLATE_ID =
+  import.meta.env.VITE_EMAILJS_ADMIN_TEMPLATE_ID;
+
+const EMAILJS_CONFIRMATION_TEMPLATE_ID =
+  import.meta.env.VITE_EMAILJS_CONFIRMATION_TEMPLATE_ID;
+
+const EMAILJS_PUBLIC_KEY =
+  import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+/*
+=====================================================
+WHATSAPP
+=====================================================
+*/
+
+const whatsappNumber =
+  import.meta.env.VITE_WHATSAPP_NUMBER || '5511999999999';
+
+/*
+=====================================================
+BENEFITS
+=====================================================
+*/
+
 const benefits = [
   {
     title: 'Veja a plataforma por dentro',
@@ -38,6 +72,12 @@ const benefits = [
       'Veja como gestores e corretores podem trabalhar dentro de uma operação mais organizada.',
   },
 ];
+
+/*
+=====================================================
+DEMO ITEMS
+=====================================================
+*/
 
 const demoItems = [
   {
@@ -60,66 +100,198 @@ const demoItems = [
   },
 ];
 
-const whatsappNumber =
-  import.meta.env.VITE_WHATSAPP_NUMBER || '5511999999999';
+/*
+=====================================================
+COMPONENT
+=====================================================
+*/
 
 export default function Contact() {
   const [isSending, setIsSending] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
 
+  /*
+  =====================================================
+  SUBMIT
+  =====================================================
+  */
+
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (isSending) return;
+  if (isSending) return;
 
-    setIsSending(true);
+  setIsSending(true);
+  setSubmitted(false);
+  setError('');
+
+  const form = e.currentTarget;
+
+  // =====================================================
+  // CAPTURA DOS DADOS DO FORMULÁRIO
+  // =====================================================
+
+  const templateParams = {
+    name: form.elements.name?.value?.trim() || '',
+    company: form.elements.company?.value?.trim() || '',
+    email: form.elements.email?.value?.trim() || '',
+    phone: form.elements.phone?.value?.trim() || '',
+    brokers: form.elements.brokers?.value?.trim() || '',
+    preferredTime:
+      form.elements.preferredTime?.value?.trim() || '',
+    message: form.elements.message?.value?.trim() || '',
+  };
+
+  console.log('====================================');
+  console.log('DADOS DO FORMULÁRIO');
+  console.log('====================================');
+  console.log(templateParams);
+  console.log('EMAIL DO CLIENTE:', templateParams.email);
+
+  // =====================================================
+  // VALIDAÇÃO EXTRA DO E-MAIL
+  // =====================================================
+
+  if (!templateParams.email) {
+    console.error('E-mail do cliente está vazio.');
+
+    setError(
+      'Informe um endereço de e-mail válido para continuar.',
+    );
+
+    setIsSending(false);
+    return;
+  }
+
+  // =====================================================
+  // 1. ENVIA SOLICITAÇÃO PARA A EQUIPE
+  // =====================================================
+
+  try {
+    await emailjs.send(
+      EMAILJS_SERVICE_ID,
+      EMAILJS_ADMIN_TEMPLATE_ID,
+      templateParams,
+      EMAILJS_PUBLIC_KEY,
+    );
+
+    console.log(
+      'Solicitação enviada para a equipe com sucesso.',
+    );
+  } catch (err) {
+    console.error(
+      'Erro ao enviar solicitação para equipe:',
+      err,
+    );
+
+    setError(
+      err?.text ||
+        'Não conseguimos enviar sua solicitação agora. Verifique seus dados e tente novamente em alguns instantes.',
+    );
+
+    setIsSending(false);
+    return;
+  }
+
+  // =====================================================
+  // 2. ENVIA CONFIRMAÇÃO PARA O CLIENTE
+  // =====================================================
+
+  try {
+    const confirmationParams = {
+      email: templateParams.email,
+      name: templateParams.name,
+      company: templateParams.company,
+      brokers: templateParams.brokers,
+      preferredTime: templateParams.preferredTime,
+    };
+
+    console.log('====================================');
+    console.log('DADOS DA CONFIRMAÇÃO');
+    console.log('====================================');
+    console.log(confirmationParams);
+    console.log(
+      'DESTINATÁRIO DA CONFIRMAÇÃO:',
+      confirmationParams.email,
+    );
+
+    await emailjs.send(
+      EMAILJS_SERVICE_ID,
+      EMAILJS_CONFIRMATION_TEMPLATE_ID,
+      confirmationParams,
+      EMAILJS_PUBLIC_KEY,
+    );
+
+    console.log(
+      'Confirmação enviada para:',
+      confirmationParams.email,
+    );
+  } catch (err) {
+    console.error(
+      'Solicitação enviada, mas confirmação falhou:',
+      err,
+    );
+
+    setSubmitted(true);
+
+    setError(
+      'Sua solicitação foi recebida. O e-mail de confirmação pode levar alguns minutos para chegar.',
+    );
+
+    form.reset();
+    setIsSending(false);
+
+    return;
+  }
+
+  // =====================================================
+  // 3. SUCESSO COMPLETO
+  // =====================================================
+
+  setSubmitted(true);
+
+  form.reset();
+
+  setIsSending(false);
+
+  setTimeout(() => {
     setSubmitted(false);
     setError('');
+  }, 8000);
+};
 
-    const form = e.currentTarget;
-
-    try {
-      await emailjs.sendForm(
-        'service_jefx9ch',
-        'template_1zoc9ih',
-        form,
-        'HTC4eCcilOxil_G9t',
-      );
-
-      setSubmitted(true);
-
-      form.reset();
-
-      setTimeout(() => {
-        setSubmitted(false);
-      }, 8000);
-    } catch (err) {
-      console.error('Erro ao enviar formulário:', err);
-
-      setError(
-        err?.text ||
-          'Não conseguimos enviar sua solicitação agora. Tente novamente em alguns instantes.',
-      );
-    } finally {
-      setIsSending(false);
-    }
-  };
+  /*
+  =====================================================
+  RENDER
+  =====================================================
+  */
 
   return (
     <main className="min-h-screen overflow-hidden bg-[#06080D] text-white">
-      {/* Background atmosphere */}
+
+      {/* ==============================================
+          BACKGROUND ATMOSPHERE
+      ============================================== */}
+
       <div className="pointer-events-none fixed inset-0 -z-10">
+
         <div className="absolute left-1/2 top-[-300px] h-[600px] w-[900px] -translate-x-1/2 rounded-full bg-blue-500/[0.06] blur-[140px]" />
 
         <div className="absolute right-[-250px] top-[35%] h-[500px] w-[500px] rounded-full bg-violet-500/[0.04] blur-[130px]" />
 
         <div className="absolute left-[-250px] top-[70%] h-[500px] w-[500px] rounded-full bg-cyan-500/[0.03] blur-[130px]" />
+
       </div>
 
-      {/* HEADER */}
+      {/* ==============================================
+          HEADER
+      ============================================== */}
+
       <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-[#06080D]/80 backdrop-blur-xl">
+
         <div className="mx-auto flex h-[76px] max-w-7xl items-center justify-between px-5 sm:px-6">
+
           <Link
             to="/"
             className="group flex items-center"
@@ -142,12 +314,19 @@ export default function Contact() {
 
             Voltar para o início
           </Link>
+
         </div>
+
       </header>
 
-      {/* HERO */}
+      {/* ==============================================
+          HERO
+      ============================================== */}
+
       <section className="relative">
-        {/* Grid */}
+
+        {/* GRID */}
+
         <div
           className="pointer-events-none absolute inset-0 opacity-[0.035]"
           style={{
@@ -158,22 +337,33 @@ export default function Contact() {
         />
 
         <div className="relative mx-auto max-w-7xl px-5 pb-20 pt-14 sm:px-6 sm:pt-20 lg:pb-28 lg:pt-24">
+
           <div className="grid gap-14 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:gap-20">
-            {/* LEFT */}
+
+            {/* ========================================
+                LEFT
+            ======================================== */}
+
             <div>
+
               <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.025] px-3.5 py-2 text-xs font-medium text-white/55 shadow-[0_8px_30px_rgba(0,0,0,0.15)]">
+
                 <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white/[0.07]">
                   <Sparkles size={11} />
                 </span>
 
                 Demonstração da plataforma
+
               </div>
 
               <h1 className="max-w-2xl text-[2.7rem] font-semibold leading-[1.04] tracking-[-0.045em] text-white sm:text-5xl lg:text-[4.25rem]">
+
                 Sua operação comercial pode ser{' '}
+
                 <span className="bg-gradient-to-r from-white via-white to-white/50 bg-clip-text text-transparent">
                   mais organizada.
                 </span>
+
               </h1>
 
               <p className="mt-7 max-w-xl text-[15px] leading-7 text-white/45 sm:text-base">
@@ -183,18 +373,22 @@ export default function Contact() {
                 corretores.
               </p>
 
-              {/* Benefits */}
+              {/* BENEFITS */}
+
               <div className="mt-9 space-y-4">
+
                 {benefits.map((benefit) => (
                   <div
                     key={benefit.title}
                     className="group flex items-start gap-3.5"
                   >
+
                     <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-white/[0.08] bg-white/[0.035] transition duration-300 group-hover:border-white/[0.15] group-hover:bg-white/[0.07]">
                       <Check size={14} />
                     </div>
 
                     <div>
+
                       <p className="text-sm font-medium text-white/80">
                         {benefit.title}
                       </p>
@@ -202,13 +396,18 @@ export default function Contact() {
                       <p className="mt-1 text-xs leading-5 text-white/35 sm:text-sm">
                         {benefit.description}
                       </p>
+
                     </div>
+
                   </div>
                 ))}
+
               </div>
 
-              {/* Trust */}
+              {/* TRUST */}
+
               <div className="mt-10 flex flex-wrap items-center gap-x-5 gap-y-3 text-xs text-white/30">
+
                 <span className="inline-flex items-center gap-2">
                   <ShieldCheck size={14} />
                   Demonstração sem compromisso
@@ -216,27 +415,51 @@ export default function Contact() {
 
                 <span className="hidden h-1 w-1 rounded-full bg-white/20 sm:block" />
 
-                <span>Conversa personalizada</span>
+                <span>
+                  Conversa personalizada
+                </span>
+
               </div>
+
             </div>
 
-            {/* FORM CARD */}
+            {/* ========================================
+                FORM CARD
+            ======================================== */}
+
             <div className="relative">
-              {/* Glow */}
+
+              {/* GLOW */}
+
               <div className="absolute -inset-4 rounded-[32px] bg-white/[0.015] blur-2xl" />
 
               <div className="relative overflow-hidden rounded-[26px] border border-white/[0.09] bg-[#0B0E14]/95 shadow-[0_30px_100px_rgba(0,0,0,0.45)] backdrop-blur-xl">
-                {/* Card top accent */}
+
+                {/* CARD TOP ACCENT */}
+
                 <div className="h-px w-full bg-gradient-to-r from-transparent via-white/25 to-transparent" />
 
+                {/* ====================================
+                    SUCCESS
+                ==================================== */}
+
                 {submitted ? (
+
                   <div className="flex min-h-[650px] flex-col items-center justify-center px-8 py-12 text-center sm:px-12">
+
                     <div className="relative mb-7">
+
                       <div className="absolute inset-0 rounded-full bg-white/[0.08] blur-xl" />
 
                       <div className="relative flex h-20 w-20 items-center justify-center rounded-full border border-white/[0.1] bg-white/[0.045]">
-                        <Check size={32} strokeWidth={1.7} />
+
+                        <Check
+                          size={32}
+                          strokeWidth={1.7}
+                        />
+
                       </div>
+
                     </div>
 
                     <span className="mb-3 text-xs font-medium uppercase tracking-[0.18em] text-white/35">
@@ -248,27 +471,50 @@ export default function Contact() {
                     </h2>
 
                     <p className="mt-4 max-w-sm text-sm leading-7 text-white/45">
-                      Recebemos seus dados e nossa equipe entrará em
-                      contato para combinar a demonstração da plataforma.
+                      Recebemos seus dados e enviamos uma
+                      confirmação para o seu e-mail. Nossa equipe
+                      entrará em contato para combinar a demonstração
+                      da plataforma.
                     </p>
 
                     <button
                       type="button"
-                      onClick={() => setSubmitted(false)}
+                      onClick={() => {
+                        setSubmitted(false);
+                        setError('');
+                      }}
                       className="group mt-9 inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.035] px-5 py-3 text-sm text-white/60 transition duration-300 hover:border-white/[0.15] hover:bg-white/[0.07] hover:text-white"
                     >
+
                       Enviar outra solicitação
 
                       <ArrowRight
                         size={15}
                         className="transition-transform duration-300 group-hover:translate-x-0.5"
                       />
+
                     </button>
+
+                    {error && (
+                      <p className="mt-5 max-w-sm text-xs leading-5 text-white/30">
+                        {error}
+                      </p>
+                    )}
+
                   </div>
+
                 ) : (
+
+                  /* ==================================
+                     FORM
+                  ================================== */
+
                   <div className="p-6 sm:p-8 lg:p-9">
-                    {/* Form header */}
+
+                    {/* FORM HEADER */}
+
                     <div className="mb-8">
+
                       <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.035]">
                         <CalendarDays size={18} />
                       </div>
@@ -282,15 +528,20 @@ export default function Contact() {
                         preparar a demonstração de acordo com sua
                         operação.
                       </p>
+
                     </div>
 
                     <form
                       onSubmit={handleSubmit}
                       className="space-y-4"
                     >
+
                       {/* NAME + COMPANY */}
+
                       <div className="grid gap-4 sm:grid-cols-2">
+
                         <div>
+
                           <label
                             htmlFor="name"
                             className="mb-2 block text-xs font-medium text-white/55"
@@ -306,11 +557,14 @@ export default function Contact() {
                             required
                             disabled={isSending}
                             autoComplete="name"
+                            maxLength={100}
                             className="h-12 w-full rounded-xl border border-white/[0.08] bg-white/[0.025] px-4 text-sm text-white outline-none transition duration-300 placeholder:text-white/20 hover:border-white/[0.12] focus:border-white/[0.22] focus:bg-white/[0.04] disabled:cursor-not-allowed disabled:opacity-50"
                           />
+
                         </div>
 
                         <div>
+
                           <label
                             htmlFor="company"
                             className="mb-2 block text-xs font-medium text-white/55"
@@ -326,14 +580,20 @@ export default function Contact() {
                             required
                             disabled={isSending}
                             autoComplete="organization"
+                            maxLength={120}
                             className="h-12 w-full rounded-xl border border-white/[0.08] bg-white/[0.025] px-4 text-sm text-white outline-none transition duration-300 placeholder:text-white/20 hover:border-white/[0.12] focus:border-white/[0.22] focus:bg-white/[0.04] disabled:cursor-not-allowed disabled:opacity-50"
                           />
+
                         </div>
+
                       </div>
 
                       {/* EMAIL + PHONE */}
+
                       <div className="grid gap-4 sm:grid-cols-2">
+
                         <div>
+
                           <label
                             htmlFor="email"
                             className="mb-2 block text-xs font-medium text-white/55"
@@ -349,11 +609,14 @@ export default function Contact() {
                             required
                             disabled={isSending}
                             autoComplete="email"
+                            maxLength={120}
                             className="h-12 w-full rounded-xl border border-white/[0.08] bg-white/[0.025] px-4 text-sm text-white outline-none transition duration-300 placeholder:text-white/20 hover:border-white/[0.12] focus:border-white/[0.22] focus:bg-white/[0.04] disabled:cursor-not-allowed disabled:opacity-50"
                           />
+
                         </div>
 
                         <div>
+
                           <label
                             htmlFor="phone"
                             className="mb-2 block text-xs font-medium text-white/55"
@@ -369,13 +632,18 @@ export default function Contact() {
                             required
                             disabled={isSending}
                             autoComplete="tel"
+                            maxLength={20}
                             className="h-12 w-full rounded-xl border border-white/[0.08] bg-white/[0.025] px-4 text-sm text-white outline-none transition duration-300 placeholder:text-white/20 hover:border-white/[0.12] focus:border-white/[0.22] focus:bg-white/[0.04] disabled:cursor-not-allowed disabled:opacity-50"
                           />
+
                         </div>
+
                       </div>
 
                       {/* BROKERS */}
+
                       <div>
+
                         <label
                           htmlFor="brokers"
                           className="mb-2 block text-xs font-medium text-white/55"
@@ -391,6 +659,7 @@ export default function Contact() {
                           defaultValue=""
                           className="h-12 w-full appearance-none rounded-xl border border-white/[0.08] bg-[#0B0E14] px-4 text-sm text-white outline-none transition duration-300 hover:border-white/[0.12] focus:border-white/[0.22] disabled:cursor-not-allowed disabled:opacity-50"
                         >
+
                           <option value="" disabled>
                             Quantos corretores?
                           </option>
@@ -414,11 +683,15 @@ export default function Contact() {
                           <option value="Mais de 50 corretores">
                             Mais de 50 corretores
                           </option>
+
                         </select>
+
                       </div>
 
                       {/* TIME */}
+
                       <div>
+
                         <label
                           htmlFor="preferredTime"
                           className="mb-2 block text-xs font-medium text-white/55"
@@ -434,22 +707,31 @@ export default function Contact() {
                           defaultValue=""
                           className="h-12 w-full appearance-none rounded-xl border border-white/[0.08] bg-[#0B0E14] px-4 text-sm text-white outline-none transition duration-300 hover:border-white/[0.12] focus:border-white/[0.22] disabled:cursor-not-allowed disabled:opacity-50"
                         >
+
                           <option value="" disabled>
                             Escolha um horário
                           </option>
 
-                          <option value="Manhã">Manhã</option>
+                          <option value="Manhã">
+                            Manhã
+                          </option>
 
-                          <option value="Tarde">Tarde</option>
+                          <option value="Tarde">
+                            Tarde
+                          </option>
 
                           <option value="Tenho flexibilidade">
                             Tenho flexibilidade
                           </option>
+
                         </select>
+
                       </div>
 
                       {/* MESSAGE */}
+
                       <div>
+
                         <label
                           htmlFor="message"
                           className="mb-2 block text-xs font-medium text-white/55"
@@ -466,26 +748,36 @@ export default function Contact() {
                           rows="3"
                           placeholder="Alguma necessidade específica?"
                           disabled={isSending}
+                          maxLength={1000}
                           className="w-full resize-none rounded-xl border border-white/[0.08] bg-white/[0.025] px-4 py-3.5 text-sm leading-6 text-white outline-none transition duration-300 placeholder:text-white/20 hover:border-white/[0.12] focus:border-white/[0.22] focus:bg-white/[0.04] disabled:cursor-not-allowed disabled:opacity-50"
                         />
+
                       </div>
 
                       {/* ERROR */}
+
                       {error && (
                         <div className="flex items-start gap-3 rounded-xl border border-red-400/15 bg-red-400/[0.05] px-4 py-3.5 text-sm text-red-300">
+
                           <span className="mt-0.5 h-1.5 w-1.5 shrink-0 rounded-full bg-red-400" />
 
-                          <span>{error}</span>
+                          <span>
+                            {error}
+                          </span>
+
                         </div>
                       )}
 
                       {/* SUBMIT */}
+
                       <button
                         type="submit"
                         disabled={isSending}
                         className="group relative flex h-13 w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-white px-5 py-3.5 text-sm font-semibold text-[#07090D] shadow-[0_10px_30px_rgba(255,255,255,0.08)] transition duration-300 hover:-translate-y-0.5 hover:bg-white/90 hover:shadow-[0_15px_40px_rgba(255,255,255,0.12)] disabled:translate-y-0 disabled:cursor-not-allowed disabled:opacity-50"
                       >
+
                         {isSending ? (
+
                           <>
                             <Loader2
                               size={17}
@@ -493,8 +785,11 @@ export default function Contact() {
                             />
 
                             Enviando solicitação...
+
                           </>
+
                         ) : (
+
                           <>
                             Solicitar demonstração
 
@@ -502,30 +797,50 @@ export default function Contact() {
                               size={17}
                               className="transition-transform duration-300 group-hover:translate-x-0.5"
                             />
+
                           </>
+
                         )}
+
                       </button>
 
                       {/* PRIVACY */}
+
                       <div className="flex items-center justify-center gap-2 pt-1 text-[11px] text-white/25">
+
                         <ShieldCheck size={13} />
 
                         Seus dados são utilizados apenas para contato
                         sobre a demonstração.
+
                       </div>
+
                     </form>
+
                   </div>
+
                 )}
+
               </div>
+
             </div>
+
           </div>
+
         </div>
+
       </section>
 
-      {/* DEMO FEATURES */}
+      {/* ==============================================
+          DEMO FEATURES
+      ============================================== */}
+
       <section className="border-t border-white/[0.06]">
+
         <div className="mx-auto max-w-7xl px-5 py-20 sm:px-6">
+
           <div className="mb-10 max-w-xl">
+
             <span className="text-xs font-medium uppercase tracking-[0.18em] text-white/30">
               O que você vai conhecer
             </span>
@@ -539,9 +854,11 @@ export default function Contact() {
               mostrar como a plataforma pode se encaixar no dia a dia
               da sua equipe.
             </p>
+
           </div>
 
           <div className="grid gap-4 md:grid-cols-3">
+
             {demoItems.map((item) => {
               const Icon = item.icon;
 
@@ -550,9 +867,11 @@ export default function Contact() {
                   key={item.title}
                   className="group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.018] p-6 transition duration-500 hover:-translate-y-1 hover:border-white/[0.12] hover:bg-white/[0.03]"
                 >
+
                   <div className="absolute right-0 top-0 h-24 w-24 rounded-full bg-white/[0.025] blur-2xl transition duration-500 group-hover:bg-white/[0.05]" />
 
                   <div className="relative">
+
                     <div className="mb-6 flex h-11 w-11 items-center justify-center rounded-xl border border-white/[0.07] bg-white/[0.035]">
                       <Icon size={18} />
                     </div>
@@ -564,25 +883,41 @@ export default function Contact() {
                     <p className="mt-2 text-sm leading-6 text-white/35">
                       {item.description}
                     </p>
+
                   </div>
+
                 </div>
               );
             })}
+
           </div>
+
         </div>
+
       </section>
 
-      {/* WHATSAPP CTA */}
+      {/* ==============================================
+          WHATSAPP CTA
+      ============================================== */}
+
       <section className="border-t border-white/[0.06]">
+
         <div className="mx-auto max-w-7xl px-5 py-16 sm:px-6">
+
           <div className="relative overflow-hidden rounded-3xl border border-white/[0.08] bg-white/[0.025] px-6 py-10 sm:px-10 lg:px-12">
+
             <div className="absolute right-[-100px] top-[-160px] h-[350px] w-[350px] rounded-full bg-white/[0.025] blur-3xl" />
 
             <div className="relative flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
+
               <div>
+
                 <div className="mb-3 inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.16em] text-white/30">
+
                   <MessageCircle size={14} />
+
                   Atendimento direto
+
                 </div>
 
                 <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
@@ -593,6 +928,7 @@ export default function Contact() {
                   Fale diretamente com nossa equipe e tire suas dúvidas
                   sobre o Leads na Mão.
                 </p>
+
               </div>
 
               <a
@@ -601,6 +937,7 @@ export default function Contact() {
                 rel="noopener noreferrer"
                 className="group inline-flex shrink-0 items-center gap-2 rounded-xl border border-white/[0.1] bg-white/[0.045] px-5 py-3.5 text-sm font-medium text-white transition duration-300 hover:border-white/[0.18] hover:bg-white/[0.08]"
               >
+
                 <MessageCircle size={17} />
 
                 Falar no WhatsApp
@@ -609,13 +946,24 @@ export default function Contact() {
                   size={15}
                   className="transition-transform duration-300 group-hover:translate-x-0.5"
                 />
+
               </a>
+
             </div>
+
           </div>
+
         </div>
+
       </section>
 
+      {/* ==============================================
+          FOOTER
+      ============================================== */}
+
       <Footer />
+
     </main>
   );
 }
+
