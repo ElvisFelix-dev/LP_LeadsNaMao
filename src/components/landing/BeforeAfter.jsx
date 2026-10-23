@@ -80,7 +80,7 @@ export default function BeforeAfter() {
               </span>
             </>
           }
-          description="O Leads Na Mão transforma processos que antes dependiam de planilhas, mensagens e controles paralelos em uma operação comercial conectada."
+          description="O CRM NODUS transforma processos que antes dependiam de planilhas, mensagens e controles paralelos em uma operação comercial conectada."
         />
 
         {/* Comparison */}
@@ -108,7 +108,7 @@ export default function BeforeAfter() {
           {/* AFTER */}
           <ComparisonCard
             type="after"
-            eyebrow="Com Leads Na Mão"
+            eyebrow="Com CRM NODUS"
             title="A operação acontece em um só lugar."
             description="Sua equipe trabalha conectada e a gestão acompanha o negócio com mais clareza."
             items={afterItems}

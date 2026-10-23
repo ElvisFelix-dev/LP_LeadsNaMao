@@ -60,7 +60,7 @@ export default function HowItWorks() {
               </span>
             </>
           }
-          description="O Leads Na Mão organiza o caminho do lead até a venda para que sua equipe saiba o que fazer e a gestão saiba o que está acontecendo."
+          description="O CRM NODUS organiza o caminho do lead até a venda para que sua equipe saiba o que fazer e a gestão saiba o que está acontecendo."
         />
 
         <div className="relative mt-16 sm:mt-20">

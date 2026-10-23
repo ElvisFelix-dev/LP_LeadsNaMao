@@ -74,7 +74,7 @@ export default function ForWho() {
               </span>
             </>
           }
-          description="Cada pessoa da imobiliária tem uma necessidade diferente. O Leads Na Mão conecta todos em torno da mesma operação."
+          description="Cada pessoa da imobiliária tem uma necessidade diferente. O CRM NODUS conecta todos em torno da mesma operação."
         />
 
         {/* Profiles */}
@@ -142,7 +142,7 @@ export default function ForWho() {
                 {/* Hover arrow */}
                 <div className="mt-7 flex items-center justify-between border-t border-white/[0.06] pt-5">
                   <span className="text-xs text-white/20">
-                    Leads Na Mão
+                    CRM NODUS
                   </span>
 
                   <ArrowUpRight

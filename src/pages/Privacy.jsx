@@ -22,7 +22,7 @@ const sections = [
       <>
         <p>
           Podemos coletar informações fornecidas diretamente por você ao
-          utilizar o Leads Na Mão, solicitar uma demonstração, entrar em
+          utilizar o CRM NODUS, solicitar uma demonstração, entrar em
           contato conosco ou utilizar nossos serviços.
         </p>
 
@@ -165,10 +165,10 @@ const sections = [
         </p>
 
         <a
-          href="mailto:contato@leadsnamao.com.br"
+          href="mailto:crmnodus@gmail.com"
           className="mt-4 inline-flex items-center gap-2 text-sm text-white/60 transition-colors hover:text-white"
         >
-          contato@leadsnamao.com.br
+          crmnodus@gmail.com
           <ArrowUpRight size={14} />
         </a>
       </>
@@ -200,14 +200,14 @@ export default function Privacy() {
             <div className="flex h-9 w-9 items-end justify-center gap-0.5 rounded-xl border border-white/10 bg-white/[0.04] p-2">
               <img
                 src={logoImg}
-                alt="Leads Na Mão"
+                alt="CRM NODUS"
                 className="h-5 w-5"
               />
             </div>
 
             <div className="leading-none">
               <span className="block text-sm font-semibold tracking-tight">
-                Leads Na Mão
+                CRM NODUS
               </span>
 
               <span className="mt-1 block text-[10px] uppercase tracking-[0.18em] text-white/30">
@@ -243,7 +243,7 @@ export default function Privacy() {
           </h1>
 
           <p className="mt-7 max-w-2xl text-base leading-7 text-white/40 sm:text-lg">
-            Esta Política de Privacidade explica como o Leads Na Mão coleta,
+            Esta Política de Privacidade explica como o CRM NODUS coleta,
             utiliza, armazena e protege informações pessoais relacionadas aos
             seus serviços.
           </p>
@@ -302,7 +302,7 @@ export default function Privacy() {
               </div>
 
               <a
-                href="mailto:contato@leadsnamao.com.br"
+                href="mailto:crmnodus@gmail.com"
                 className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-[#07090D] transition-all hover:bg-white/90"
               >
                 <Mail size={15} />

@@ -44,7 +44,7 @@ export default function CTA() {
             {/* Eyebrow */}
             <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.025] px-3 py-2 text-xs font-medium text-white/40">
               <Sparkles size={13} strokeWidth={1.7} />
-              Leads Na Mão
+              CRM NODUS
             </div>
 
             {/* Title */}
@@ -69,7 +69,7 @@ export default function CTA() {
                 variant="primary"
                 icon
               >
-                Conhecer o Leads Na Mão
+                Conhecer o CRM NODUS
               </Button>
 
               <Button

@@ -74,7 +74,7 @@ export default function Solution() {
           </h2>
 
           <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-white/45 sm:text-lg sm:leading-8">
-            O Leads Na Mão centraliza o trabalho da sua equipe em uma única
+            O CRM NODUS centraliza o trabalho da sua equipe em uma única
             plataforma — do momento em que o lead entra até a evolução da
             negociação.
           </p>
@@ -120,7 +120,7 @@ export default function Solution() {
 
                   <div className="mx-auto hidden h-6 max-w-md flex-1 items-center justify-center rounded-md border border-white/[0.05] bg-white/[0.02] sm:flex">
                     <span className="text-[10px] text-white/20">
-                      app.leadsnamao.com.br
+                      CRM NODUS · Plataforma
                     </span>
                   </div>
 
@@ -136,7 +136,7 @@ export default function Solution() {
 
                     <img
                       src={imgHero}
-                      alt="Dashboard do Leads Na Mão"
+                      alt="Dashboard do CRM NODUS"
                       className="h-full w-full object-cover object-top"
                     />
 
@@ -155,7 +155,7 @@ export default function Solution() {
               <span className="hidden h-1 w-1 rounded-full bg-white/15 sm:block" />
 
               <span className="text-xs text-white/20">
-                Dashboard Leads Na Mão
+                Dashboard CRM NODUS
               </span>
             </div>
           </div>

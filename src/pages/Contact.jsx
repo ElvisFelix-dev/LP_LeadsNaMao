@@ -298,7 +298,7 @@ export default function Contact() {
           >
             <img
               src={logoImg}
-              alt="Leads na Mão"
+              alt="CRM NODUS"
               className="h-9 w-auto transition duration-300 group-hover:opacity-80"
             />
           </Link>
@@ -367,7 +367,7 @@ export default function Contact() {
               </h1>
 
               <p className="mt-7 max-w-xl text-[15px] leading-7 text-white/45 sm:text-base">
-                Conheça o Leads na Mão e veja como uma operação
+                Conheça o CRM NODUS e veja como uma operação
                 imobiliária pode centralizar seus leads, organizar
                 oportunidades e dar mais visibilidade para gestores e
                 corretores.
@@ -926,7 +926,7 @@ export default function Contact() {
 
                 <p className="mt-2 max-w-lg text-sm leading-6 text-white/40">
                   Fale diretamente com nossa equipe e tire suas dúvidas
-                  sobre o Leads na Mão.
+                  sobre o CRM NODUS.
                 </p>
 
               </div>

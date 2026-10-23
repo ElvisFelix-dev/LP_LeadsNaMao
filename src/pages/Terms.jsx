@@ -22,7 +22,7 @@ const sections = [
     content: (
       <>
         <p>
-          Ao acessar ou utilizar o Leads Na Mão, você declara que leu,
+          Ao acessar ou utilizar o CRM NODUS, você declara que leu,
           compreendeu e concorda com estes Termos de Uso.
         </p>
 
@@ -40,11 +40,11 @@ const sections = [
   },
   {
     icon: FileText,
-    title: '2. Sobre o Leads Na Mão',
+    title: '2. Sobre o CRM NODUS',
     content: (
       <>
         <p>
-          O Leads Na Mão é uma plataforma de gestão comercial desenvolvida
+          O CRM NODUS é uma plataforma de gestão comercial desenvolvida
           para apoiar imobiliárias na organização de leads, equipes,
           oportunidades e processos relacionados à operação de vendas.
         </p>
@@ -82,7 +82,7 @@ const sections = [
         <p>
           Caso identifique qualquer utilização não autorizada da conta, o
           usuário deverá comunicar a situação à equipe responsável pelo
-          Leads Na Mão.
+          CRM NODUS.
         </p>
       </>
     ),
@@ -93,7 +93,7 @@ const sections = [
     content: (
       <>
         <p>
-          O Leads Na Mão deve ser utilizado de acordo com a legislação
+          O CRM NODUS deve ser utilizado de acordo com a legislação
           aplicável e exclusivamente para finalidades legítimas relacionadas
           às atividades do usuário.
         </p>
@@ -129,7 +129,7 @@ const sections = [
         </p>
 
         <p>
-          O tratamento de dados pessoais realizado pelo Leads Na Mão está
+          O tratamento de dados pessoais realizado pelo CRM NODUS está
           sujeito também à sua Política de Privacidade e às responsabilidades
           aplicáveis a cada parte envolvida no tratamento.
         </p>
@@ -142,7 +142,7 @@ const sections = [
     content: (
       <>
         <p>
-          Buscamos manter o Leads Na Mão disponível e funcionando de forma
+          Buscamos manter o CRM NODUS disponível e funcionando de forma
           adequada, mas não podemos garantir disponibilidade ininterrupta.
         </p>
 
@@ -166,7 +166,7 @@ const sections = [
       <>
         <p>
           O software, identidade visual, marca, interface, código, textos,
-          elementos gráficos e demais componentes do Leads Na Mão são
+          elementos gráficos e demais componentes do CRM NODUS são
           protegidos pela legislação aplicável de propriedade intelectual.
         </p>
 
@@ -214,10 +214,10 @@ const sections = [
         </p>
 
         <a
-          href="mailto:contato@leadsnamao.com.br"
+          href="mailto:crmnodus@gmail.com"
           className="mt-4 inline-flex items-center gap-2 text-sm text-white/60 transition-colors hover:text-white"
         >
-          contato@leadsnamao.com.br
+          crmnodus@gmail.com
           <ArrowUpRight size={14} />
         </a>
       </>
@@ -249,14 +249,14 @@ export default function Terms() {
             <div className="flex h-9 w-9 items-end justify-center gap-0.5 rounded-xl border border-white/10 bg-white/[0.04] p-2">
               <img
                 src={logoImg}
-                alt="Leads Na Mão"
+                alt="CRM NODUS"
                 className="h-5 w-5"
               />
             </div>
 
             <div className="leading-none">
               <span className="block text-sm font-semibold tracking-tight">
-                Leads Na Mão
+                CRM NODUS
               </span>
 
               <span className="mt-1 block text-[10px] uppercase tracking-[0.18em] text-white/30">
@@ -293,7 +293,7 @@ export default function Terms() {
 
           <p className="mt-7 max-w-2xl text-base leading-7 text-white/40 sm:text-lg">
             Estes Termos de Uso estabelecem as condições aplicáveis ao acesso
-            e utilização do Leads Na Mão e dos serviços disponibilizados pela
+            e utilização do CRM NODUS e dos serviços disponibilizados pela
             plataforma.
           </p>
 
@@ -351,7 +351,7 @@ export default function Terms() {
               </div>
 
               <a
-                href="mailto:contato@leadsnamao.com.br"
+                href="mailto:crmnodus@gmail.com"
                 className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-[#07090D] transition-all hover:bg-white/90"
               >
                 <Mail size={15} />

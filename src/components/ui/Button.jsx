@@ -8,7 +8,7 @@ export default function Button({
 }) {
   const variants = {
     primary:
-      'bg-white text-black hover:bg-white/90',
+      'bg-gradient-to-r from-blue-600 to-sky-500 text-white shadow-lg shadow-blue-950/40 hover:from-blue-500 hover:to-sky-400',
 
     secondary:
       'border border-white/10 bg-white/[0.04] text-white hover:bg-white/[0.08]',

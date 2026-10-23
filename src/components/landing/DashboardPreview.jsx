@@ -73,7 +73,7 @@ export default function DashboardPreview() {
               </div>
 
               <div className="mx-auto hidden h-7 w-72 items-center justify-center rounded-md border border-white/[0.05] bg-white/[0.02] text-[10px] text-white/20 sm:flex">
-                app.leadsnamao.com.br/dashboard
+                CRM NODUS · Dashboard
               </div>
 
               <div className="w-12" />
@@ -84,7 +84,7 @@ export default function DashboardPreview() {
 
               <img
                 src="/images/platform/dashboard.png"
-                alt="Dashboard do Leads Na Mão"
+                alt="Dashboard do CRM NODUS"
                 className="h-full w-full object-cover object-top"
               />
 

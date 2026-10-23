@@ -20,21 +20,21 @@ export default function Navbar() {
 
             {/* Logo */}
             <a
-              href="#"
+              href="/#topo"
               className="flex items-center gap-2.5"
-              aria-label="Leads Na Mão"
+              aria-label="CRM NODUS"
             >
               <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/[0.06]">
                 <img
                   src={logoImg}
-                  alt="Leads Na Mão"
-                  className="h-5 w-5"
+                  alt="CRM NODUS"
+                  className="h-full w-full rounded-xl object-cover"
                 />
               </div>
 
               <div className="leading-none">
                 <span className="block text-sm font-semibold tracking-tight text-white">
-                  Leads Na Mão
+                  CRM NODUS
                 </span>
 
                 <span className="mt-1 block text-[10px] font-medium uppercase tracking-[0.18em] text-white/35">
@@ -62,7 +62,7 @@ export default function Navbar() {
                 href="/contato"
                 className="group inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-black transition hover:bg-white/90"
               >
-                Conhecer plataforma
+                Solicitar demonstração
 
                 <ArrowRight
                   size={15}
@@ -102,7 +102,7 @@ export default function Navbar() {
                   onClick={() => setMenuOpen(false)}
                   className="mt-2 flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-3 text-sm font-semibold text-black"
                 >
-                  Conhecer plataforma
+                  Solicitar demonstração
                   <ArrowRight size={15} />
                 </a>
               </div>

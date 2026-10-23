@@ -54,7 +54,7 @@ export default function Features() {
               </span>
             </>
           }
-          description="Do primeiro contato à venda, o Leads Na Mão conecta as principais etapas da operação comercial da sua imobiliária."
+          description="Do primeiro contato à venda, o CRM NODUS conecta as principais etapas da operação comercial da sua imobiliária."
         />
 
         {/* =====================================================
@@ -81,7 +81,7 @@ export default function Features() {
             'Evolução do relacionamento',
           ]}
           image="/images/platform/leads.png"
-          imageAlt="Gestão de leads do Leads Na Mão"
+          imageAlt="Gestão de leads do CRM NODUS"
           placeholder="Screenshot da gestão de leads"
         />
 
@@ -138,7 +138,7 @@ export default function Features() {
             'Histórico das movimentações',
           ]}
           image="/images/platform/pipeline.png"
-          imageAlt="Pipeline comercial do Leads Na Mão"
+          imageAlt="Pipeline comercial do CRM NODUS"
           placeholder="Screenshot do pipeline comercial"
         />
 
@@ -167,7 +167,7 @@ export default function Features() {
             'Visão individual e da equipe',
           ]}
           image="/images/platform/agenda.png"
-          imageAlt="Agenda do Leads Na Mão"
+          imageAlt="Agenda do CRM NODUS"
           placeholder="Screenshot da agenda"
         />
 
@@ -195,7 +195,7 @@ export default function Features() {
             'Relacionamento entre lead e imóvel',
           ]}
           image="/images/platform/properties.png"
-          imageAlt="Gestão de imóveis do Leads Na Mão"
+          imageAlt="Gestão de imóveis do CRM NODUS"
           placeholder="Screenshot da gestão de imóveis"
         />
 
@@ -224,7 +224,7 @@ export default function Features() {
             'Integração com o processo comercial',
           ]}
           image="/images/platform/proposals.png"
-          imageAlt="Propostas do Leads Na Mão"
+          imageAlt="Propostas do CRM NODUS"
           placeholder="Screenshot de propostas"
         />
 
@@ -417,7 +417,7 @@ function FeatureBlock({
             <span className="h-1.5 w-1.5 rounded-full bg-white/30" />
 
             <span className="text-[10px] font-medium text-white/40">
-              Leads Na Mão
+              CRM NODUS
             </span>
           </div>
         </div>

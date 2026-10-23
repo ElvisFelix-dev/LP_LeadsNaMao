@@ -51,19 +51,19 @@ export default function Footer() {
             <Link
               to="/"
               className="inline-flex items-center gap-3"
-              aria-label="Leads Na Mão"
+              aria-label="CRM NODUS"
             >
               <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-white/[0.04]">
                 <img
                   src={logoImg}
-                  alt="Leads Na Mão"
+                  alt="CRM NODUS"
                   className="h-full w-full object-contain"
                 />
               </div>
 
               <div className="flex flex-col">
                 <span className="text-sm font-semibold tracking-tight text-white">
-                  Leads Na Mão
+                  CRM NODUS
                 </span>
 
                 <span className="text-[10px] uppercase tracking-[0.18em] text-white/30">
@@ -81,7 +81,7 @@ export default function Footer() {
               to="/contato"
               className="group mt-6 inline-flex items-center gap-2 text-sm font-medium text-white/65 transition-colors duration-200 hover:text-white"
             >
-              Conhecer a plataforma
+              Solicitar demonstração
               <ArrowRight
                 size={14}
                 className="transition-transform duration-200 group-hover:translate-x-1"
@@ -136,9 +136,9 @@ export default function Footer() {
 
             <div className="mt-5 flex flex-col gap-3">
               <ContactLink
-                href="mailto:contato@leadsnamao.com.br"
+                href="mailto:crmnodus@gmail.com"
                 icon={Mail}
-                label="contato@leadsnamao.com.br"
+                label="crmnodus@gmail.com"
               />
 
               <ContactLink
@@ -149,7 +149,7 @@ export default function Footer() {
             </div>
 
             <p className="mt-5 max-w-xs text-xs leading-5 text-white/25">
-              Quer entender como o Leads Na Mão pode funcionar na sua
+              Quer entender como o CRM NODUS pode funcionar na sua
               imobiliária? Vamos conversar.
             </p>
           </div>
@@ -158,7 +158,7 @@ export default function Footer() {
         {/* Bottom */}
         <div className="flex flex-col gap-5 border-t border-white/[0.05] py-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-white/25">
-            © {currentYear} Leads Na Mão. Todos os direitos reservados.
+            © {currentYear} CRM NODUS. Todos os direitos reservados.
           </p>
 
           <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
